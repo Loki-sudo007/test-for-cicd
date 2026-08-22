@@ -1,0 +1,53 @@
+name: CI
+
+run-name: ${{ github.actor }} is testing out GitHub Actions
+
+on:
+  push:
+    branches: [ "main" ]
+
+  pull_request:
+    branches: [ "main" ]
+
+  workflow_dispatch:
+
+  schedule:
+    - cron: '*/15 * * * *'
+
+env:
+  APP_NAME: PythonApp
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    env:
+      CONFIG_TYPE: Debug
+      PYTHON_VERSION: 3.8
+
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Run a one-line script
+        run: echo Hello, world!
+
+      - name: Run a multi-line script
+        run: |
+          echo Add other actions to build,
+          echo test, and deploy your project.
+
+      - run: echo "The job was triggered by a ${{ github.event_name }} event"
+
+      - run: echo "This job is running on ${{ runner.os }} server hosted by GitHub"
+
+      - run: echo "Name of your branch is ${{ github.ref }} and your repository is ${{ github.repository }}"
+
+      - name: List Files in the repo
+        env:
+          GITHUB_WORKSPACE: ${{ github.workspace }}
+        run: |
+          ls ${{ env.GITHUB_WORKSPACE }}
+
+      - run: echo "This job's status is ${{ job.status }}"
+
+      - run: echo "App Name ${{ env.APP_NAME }} ${{ env.CONFIG_TYPE }} ${{ env.PYTHON_VERSION }}"
