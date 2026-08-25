@@ -39,7 +39,7 @@ def hello():
     counter = Counter.query.first()
     counter.value += 1
     db.session.commit()
-    return f'''
+    return rf'''
     Docker is Awesome! My ENV var is: {app_env}<br>
     Page reload count: {counter.value}<br>
 <pre>                   ##        .</pre>
@@ -75,14 +75,18 @@ def readiness_check():
 def external_call():
     external_url = os.getenv("EXTERNAL_ENDPOINT")
     if not external_url:
-        Response("EXTERNAL_ENDPOINT not defined", status=500)
+        return Response("EXTERNAL_ENDPOINT not defined", status=500)
     try:
         response = requests.get(external_url)
         return Response(
-            f"External call response: {response.text}", status=response.status_code
+            f"External call response: {response.text}",
+            status=response.status_code,
         )
     except Exception as e:
-        return Response(f"Error calling external endpoint: {str(e)}", status=500)
+        return Response(
+            f"Error calling external endpoint: {str(e)}",
+            status=500,
+        )
 
 
 if __name__ == "__main__":
