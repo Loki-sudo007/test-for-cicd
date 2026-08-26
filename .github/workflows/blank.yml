@@ -88,7 +88,7 @@ jobs:
       uses: actions/upload-artifact@v4
       with:
         name: helm-artifacts
-        path: ${{ github.workspace }}/helm-charts
+        path: ${{ github.workspace }}/helm-chart/kube2py
 
   helm-ci:
     needs: build-image
