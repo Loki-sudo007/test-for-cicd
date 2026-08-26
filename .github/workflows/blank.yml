@@ -82,3 +82,21 @@ jobs:
         context: ./src
         push: true
         tags: ${{ secrets.DOCKERHUB_USERNAME }}/${{ env.DOCKER_IMAGE_NAME }}:${{ github.sha }}
+
+    - name: Upload helm artifacts
+      if: github.ref_name == 'main'
+      uses: actions/upload-artifact@v4
+      with:
+        name: helm-artifacts
+        path: ${{ github.workspace }}/helm-charts
+
+  helm-ci:
+      needs: build-image
+      runs-on: ubuntu-latest
+      if: github.ref_name == 'main'
+
+      steps:
+      - uses: actions/download-artifact@v4
+        with:
+          name: helm-artifacts
+          path: .
