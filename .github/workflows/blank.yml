@@ -104,9 +104,8 @@ jobs:
     - name: Set up Helm
       uses: azure/setup-helm@v4.2.0
 
-    - name: Show Helm files
-      run: |
-        find ./kube2py -maxdepth 4 -type f
+    - name: Update Helm dependencies
+      run: helm dependency update ./kube2py/
 
     - name: Lint Helm
       run: helm lint ./kube2py/
