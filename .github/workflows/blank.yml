@@ -91,7 +91,7 @@ jobs:
         path: ${{ github.workspace }}/helm-chart/kube2py
 
   helm-ci:
-    needs: build-image
+    needs: python-ci
     runs-on: ubuntu-latest
     if: github.ref_name == 'main'
 
