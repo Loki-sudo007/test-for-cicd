@@ -32,13 +32,6 @@ jobs:
         name: helm-artifacts
         path: ./kube2py
 
-    - name: Show downloaded files
-      run: |
-        pwd
-        ls -la
-        ls -la ./kube2py || true
-        find . -maxdepth 4 -type f
-
     - name: Set Up Helm
       uses: azure/setup-helm@v4.2.0
 
@@ -57,7 +50,7 @@ jobs:
     - name: Deploy helm to Development
       run: |
         helm upgrade --install --atomic --wait --timeout 3600s --debug kube2py ./kube2py-*.tgz \
-          -f ${{ inputs.helm-values-path }} \
+          -f "$GITHUB_WORKSPACE/kube2py/values.yaml" \
           --set-string mysql.configs.MYSQL_ROOT_PASSWORD="${{ secrets.MYSQL_ROOT_PASSWORD }}" \
           --set-string mysql.configs.MYSQL_USER="${{ secrets.MYSQL_USER }}" \
           --set-string mysql.configs.MYSQL_PASSWORD="${{ secrets.MYSQL_PASSWORD }}" \
