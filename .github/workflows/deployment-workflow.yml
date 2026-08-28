@@ -35,6 +35,8 @@ jobs:
     - name: Show downloaded files
       run: |
         pwd
+        ls -la
+        ls -la ./kube2py || true
         find . -maxdepth 4 -type f
 
     - name: Set Up Helm
