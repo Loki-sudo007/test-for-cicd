@@ -32,6 +32,11 @@ jobs:
         name: helm-artifacts
         path: ./kube2py
 
+    - name: Show downloaded files
+      run: |
+        pwd
+        find . -maxdepth 4 -type f
+
     - name: Set Up Helm
       uses: azure/setup-helm@v4.2.0
 
