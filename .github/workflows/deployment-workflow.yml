@@ -13,7 +13,7 @@ on:
         type: string
       helm-values-path:
         type: string
-        default: './kube2py/values.yml'
+        default: './values.yml'
 
 jobs:
   deploy-helm:
@@ -57,4 +57,4 @@ jobs:
           --set-string kube2py.secrets.password="${{ secrets.KUBE2PY_PASSWORD }}" \
           --set-string kube2py.secrets.login="${{ secrets.KUBE2PY_LOGIN }}" \
           --set-string kube2py.secrets.DB_CONNECTION="${{ secrets.DB_CONNECTION }}" \
-          --set-string kube2py.image.version=${{ github.sha }}
+          --set-string kube2py.image.version="${{ inputs.version }}"
