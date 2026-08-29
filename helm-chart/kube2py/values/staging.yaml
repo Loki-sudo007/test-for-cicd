@@ -1,4 +1,5 @@
-namespace: kube2py-staging
+commmon:
+  namespace: kube2py-staging
 
 global:
   ENVIRONMENT: "Staging"
